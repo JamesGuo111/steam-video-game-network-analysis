@@ -1,0 +1,101 @@
+node_id,rank,name,ccu,owners,positive_reviews,negative_reviews,total_reviews,review_score,average_playtime_minutes,price_cents,tags,num_tags,primary_tag
+730,1,Counter-Strike: Global Offensive,1013936,100000000 .. 200000000,7642084,1173003,8815087,86.7,33203,0,FPS; Shooter; Multiplayer; Competitive; Action,5,FPS
+578080,2,PUBG: BATTLEGROUNDS,314682,100000000 .. 200000000,1520457,1037487,2557944,59.4,23967,0,Survival; Shooter; Battle Royale; Multiplayer; FPS,5,Survival
+252490,3,Rust,143870,20000000 .. 50000000,1071135,156649,1227784,87.2,25223,3999,Survival; Crafting; Multiplayer; Open World; Open World Survival Craft,5,Survival
+1172470,4,Apex Legends,124262,100000000 .. 200000000,668053,326926,994979,67.1,10247,0,Free to Play; Battle Royale; Multiplayer; FPS; Shooter,5,Free to Play
+431960,5,Wallpaper Engine,91184,20000000 .. 50000000,876898,17560,894458,98.0,4887,499,Mature; Utilities; Anime; Software; Design & Illustration,5,Mature
+271590,6,Grand Theft Auto V Legacy,67851,50000000 .. 100000000,1739980,250576,1990556,87.4,13376,0,Open World; Action; Multiplayer; Crime; Automobile Sim,5,Open World
+1938090,7,Call of Duty: Modern Warfare II,67419,50000000 .. 100000000,419594,294520,714114,58.8,5073,3849,FPS; Multiplayer; Shooter; Singleplayer; Action,5,FPS
+1203220,8,NARAKA: BLADEPOINT,66954,10000000 .. 20000000,225960,98967,324927,69.5,9978,0,Battle Royale; Multiplayer; Martial Arts; Mature; PvP,5,Battle Royale
+1086940,9,Baldur's Gate 3,54771,20000000 .. 50000000,736688,23974,760662,96.8,8218,5999,RPG; Character Customization; Choices Matter; Story Rich; Turn-Based Combat,5,RPG
+553850,10,HELLDIVERS 2,53399,20000000 .. 50000000,775883,241752,1017635,76.2,5083,3999,Online Co-Op; PvE; Third-Person Shooter; Multiplayer; Action,5,Online Co-Op
+359550,11,Tom Clancy's Rainbow Six Siege,51847,20000000 .. 50000000,1172854,225730,1398584,83.9,14838,1999,FPS; PvP; Multiplayer; Tactical; e-sports,5,FPS
+413150,12,Stardew Valley,50662,20000000 .. 50000000,872384,13811,886195,98.4,4786,1499,Farming Sim; Pixel Graphics; Multiplayer; Life Sim; RPG,5,Farming Sim
+236390,13,War Thunder,50478,20000000 .. 50000000,484469,272617,757086,64.0,10592,0,Free to Play; Simulation; Vehicular Combat; Combat; World War II,5,Free to Play
+381210,14,Dead by Daylight,44886,20000000 .. 50000000,630223,166993,797216,79.1,10898,1999,Horror; Multiplayer; Survival Horror; Online Co-Op; Co-op,5,Horror
+440,15,Team Fortress 2,43819,50000000 .. 100000000,1044264,117208,1161472,89.9,23450,0,Free to Play; Hero Shooter; Multiplayer; FPS; Shooter,5,Free to Play
+221100,16,DayZ,37066,10000000 .. 20000000,330349,99903,430252,76.8,16073,4999,Survival; Open World; Online Co-Op; Zombies; Multiplayer,5,Survival
+230410,17,Warframe,36195,20000000 .. 50000000,545393,81110,626503,87.1,13408,0,Free to Play; Action RPG; Looter Shooter; Third-Person Shooter; Action,5,Free to Play
+438100,18,VRChat,34699,20000000 .. 50000000,181623,58732,240355,75.6,6181,0,VR; Free to Play; Multiplayer; Anime; Memes,5,VR
+3241660,19,R.E.P.O.,32349,10000000 .. 20000000,179154,6488,185642,96.5,1145,999,Horror; Online Co-Op; Multiplayer; Comedy; Co-op,5,Horror
+322330,20,Don't Starve Together,30542,10000000 .. 20000000,475393,23668,499061,95.3,3075,1499,Survival; Open World Survival Craft; Multiplayer; Co-op; Open World,5,Survival
+1174180,21,Red Dead Redemption 2,29885,10000000 .. 20000000,676667,56875,733542,92.2,4071,1499,Open World; Story Rich; Western; Adventure; Multiplayer,5,Open World
+1245620,22,ELDEN RING,29529,20000000 .. 50000000,981540,75137,1056677,92.9,8126,5999,Souls-like; Open World; Dark Fantasy; RPG; Difficult,5,Souls-like
+218620,23,PAYDAY 2,27254,20000000 .. 50000000,594327,68755,663082,89.6,8739,999,Co-op; Action; FPS; Heist; Multiplayer,5,Co-op
+289070,24,Sid Meier’s Civilization VI,25420,10000000 .. 20000000,304053,45867,349920,86.9,6688,5999,Strategy; Turn-Based Strategy; Multiplayer; Historical; Grand Strategy,5,Strategy
+1222670,25,The Sims 4,25276,10000000 .. 20000000,149064,21663,170727,87.3,1651,0,Life Sim; Character Customization; Free to Play; Building; Romance,5,Life Sim
+550,26,Left 4 Dead 2,25122,50000000 .. 100000000,940221,23762,963983,97.5,2393,999,Zombies; Co-op; FPS; Multiplayer; Shooter,5,Zombies
+1085660,27,Destiny 2,24619,20000000 .. 50000000,497891,127725,625616,79.6,11679,0,Free to Play; Open World; Multiplayer; Looter Shooter; MMORPG,5,Free to Play
+105600,28,Terraria,24580,20000000 .. 50000000,1373979,35494,1409473,97.5,8079,999,Open World Survival Craft; Sandbox; Survival; 2D; Multiplayer,5,Open World Survival Craft
+108600,29,Project Zomboid,22864,10000000 .. 20000000,355171,21892,377063,94.2,4164,1999,Survival; Zombies; Open World; Multiplayer; Open World Survival Craft,5,Survival
+3164500,30,Schedule I,22757,10000000 .. 20000000,200803,3238,204041,98.4,1660,1999,Simulation; Co-op; Crime; Multiplayer; Open World,5,Simulation
+1091500,31,Cyberpunk 2077,22265,20000000 .. 50000000,713071,131850,844921,84.4,4997,5999,Cyberpunk; Open World; Nudity; RPG; Singleplayer,5,Cyberpunk
+346110,32,ARK: Survival Evolved,22170,20000000 .. 50000000,612177,117993,730170,83.8,10638,989,Open World Survival Craft; Survival; Multiplayer; Open World; Dinosaurs,5,Open World Survival Craft
+252950,33,Rocket League,21106,10000000 .. 20000000,509445,73775,583220,87.4,18259,0,Multiplayer; Football (Soccer); Competitive; Sports; Racing,5,Multiplayer
+4000,34,Garry's Mod,18400,20000000 .. 50000000,1122546,37161,1159707,96.8,10010,999,Sandbox; Moddable; Multiplayer; Physics; Building,5,Sandbox
+1623730,35,Palworld,18028,50000000 .. 100000000,358266,22443,380709,94.1,3958,2999,Open World; Survival; Creature Collector; Multiplayer; Open World Survival Craft,5,Open World
+1599340,36,Lost Ark,17355,50000000 .. 100000000,143481,58540,202021,71.0,5240,0,MMORPG; Free to Play; Action RPG; Multiplayer; Hack and Slash,5,MMORPG
+227300,37,Euro Truck Simulator 2,17281,10000000 .. 20000000,844480,22924,867404,97.4,7534,499,Driving; Transportation; Simulation; Open World; Automobile Sim,5,Driving
+251570,38,7 Days to Die,17045,10000000 .. 20000000,327889,42157,370046,88.6,6646,4499,Survival; Zombies; Multiplayer; Open World; Open World Survival Craft,5,Survival
+2694490,39,Path of Exile 2,16727,20000000 .. 50000000,118511,50510,169021,70.1,9271,2999,Action RPG; Hack and Slash; RPG; Souls-like; MMORPG,5,Action RPG
+292030,40,The Witcher 3: Wild Hunt,15893,20000000 .. 50000000,802993,32356,835349,96.1,3673,3999,Open World; RPG; Story Rich; Atmospheric; Mature,5,Open World
+2358720,41,Black Myth: Wukong,15004,50000000 .. 100000000,1111720,38378,1150098,96.7,3277,5999,Mythology; Action RPG; Action; Souls-like; RPG,5,Mythology
+261550,42,Mount & Blade II: Bannerlord,14477,10000000 .. 20000000,232360,32031,264391,87.9,9101,4999,Medieval; Strategy; Open World; RPG; War,5,Medieval
+892970,43,Valheim,14439,10000000 .. 20000000,471451,28377,499828,94.3,4590,1999,Open World Survival Craft; Survival; Online Co-Op; Open World; Multiplayer,5,Open World Survival Craft
+291550,44,Brawlhalla,14169,20000000 .. 50000000,314809,71647,386456,81.5,3920,0,Free to Play; Multiplayer; Fighting; 2D Fighter; 2D Platformer,5,Free to Play
+1665460,45,eFootball,13404,10000000 .. 20000000,44067,48266,92333,47.7,4085,0,Football (Soccer); Free to Play; Controller; Multiplayer; Sports,5,Football (Soccer)
+526870,46,Satisfactory,12596,10000000 .. 20000000,225479,6585,232064,97.2,6710,3999,Base-Building; Automation; Open World; Multiplayer; Crafting,5,Base-Building
+2246340,47,Monster Hunter Wilds,12494,20000000 .. 50000000,127273,91142,218415,58.3,4756,3849,Hunting; Action; Multiplayer; Online Co-Op; Co-op,5,Hunting
+8930,48,Sid Meier's Civilization V,12206,10000000 .. 20000000,195724,8541,204265,95.8,8362,2999,Turn-Based Strategy; Strategy; Turn-Based; Multiplayer; Historical,5,Turn-Based Strategy
+582010,49,Monster Hunter: World,11923,10000000 .. 20000000,434239,59151,493390,88.0,8739,779,Co-op; Multiplayer; Action; Open World; RPG,5,Co-op
+377160,50,Fallout 4,11179,10000000 .. 20000000,326054,66233,392287,83.1,5680,1999,Open World; Post-apocalyptic; Singleplayer; Exploration; RPG,5,Open World
+304930,51,Unturned,10408,50000000 .. 100000000,506516,48852,555368,91.2,9495,0,Free to Play; Survival; Zombies; Multiplayer; Open World,5,Free to Play
+739630,52,Phasmophobia,9978,10000000 .. 20000000,736611,32168,768779,95.8,2236,1999,Horror; Online Co-Op; Multiplayer; Psychological Horror; Co-op,5,Horror
+255710,53,Cities: Skylines,8842,10000000 .. 20000000,256362,19408,275770,93.0,3487,2999,City Builder; Simulation; Building; Management; Strategy,5,City Builder
+49520,54,Borderlands 2,8551,10000000 .. 20000000,272900,22318,295218,92.4,2964,1999,Loot; Shooter; Action; Multiplayer; Co-op,5,Loot
+552990,55,World of Warships,8518,20000000 .. 50000000,112887,33665,146552,77.0,3713,0,Free to Play; Naval Combat; Action; Co-op; Tactical,5,Free to Play
+632360,56,Risk of Rain 2,7902,5000000 .. 10000000,293127,20450,313577,93.5,3492,2499,Third-Person Shooter; Action Roguelike; Multiplayer; Co-op; Action,5,Third-Person Shooter
+10,57,Counter-Strike,7323,10000000 .. 20000000,243818,6427,250245,97.4,11335,999,Action; FPS; Multiplayer; Shooter; Classic,5,Action
+107410,58,Arma 3,7181,10000000 .. 20000000,256128,27136,283264,90.4,12817,2999,Military; Action; Multiplayer; Shooter; Simulation,5,Military
+814380,59,Sekiro: Shadows Die Twice - GOTY Edition,6767,10000000 .. 20000000,307041,15193,322234,95.3,2638,5999,Souls-like; Difficult; Action; Singleplayer; Ninja,5,Souls-like
+1238810,60,Battlefield V,6327,10000000 .. 20000000,177352,72936,250288,70.9,2432,4999,FPS; Multiplayer; Singleplayer; World War II; Shooter,5,FPS
+594650,61,Hunt: Showdown 1896,6300,10000000 .. 20000000,181110,67110,248220,73.0,8810,2999,Open World; Extraction Shooter; Multiplayer; Atmospheric; Tactical,5,Open World
+1966720,62,Lethal Company,6199,10000000 .. 20000000,473422,13738,487160,97.2,1374,999,Online Co-Op; Horror; First-Person; Co-op; Survival Horror,5,Online Co-Op
+240,63,Counter-Strike: Source,6187,10000000 .. 20000000,175426,6808,182234,96.3,7881,999,Shooter; FPS; Action; Multiplayer; Team-Based,5,Shooter
+899770,64,Last Epoch,5831,20000000 .. 50000000,88027,22596,110623,79.6,5366,3499,Action RPG; Loot; Hack and Slash; RPG; Isometric,5,Action RPG
+990080,65,Hogwarts Legacy,5716,20000000 .. 50000000,289966,31429,321395,90.2,2034,5999,Magic; Open World; Fantasy; Singleplayer; Adventure,5,Magic
+444200,66,World of Tanks Blitz,5707,10000000 .. 20000000,116407,31754,148161,78.6,9403,0,Tanks; Free to Play; Shooter; Action; FPS,5,Tanks
+1063730,67,New World: Aeternum,5583,50000000 .. 100000000,196798,90080,286878,68.6,10310,5999,Open World; Massively Multiplayer; MMORPG; RPG; Adventure,5,Open World
+239140,68,Dying Light,4953,10000000 .. 20000000,435687,21945,457632,95.2,2119,499,Zombies; Survival Horror; Horror; Online Co-Op; Open World,5,Zombies
+648800,69,Raft,4701,10000000 .. 20000000,323198,23161,346359,93.3,1645,1999,Survival; Multiplayer; Open World Survival Craft; Co-op; Crafting,5,Survival
+238960,70,Path of Exile,4694,20000000 .. 50000000,209822,25269,235091,89.3,12011,0,Free to Play; Dark Fantasy; Action RPG; Hack and Slash; Loot,5,Free to Play
+1326470,71,Sons Of The Forest,4450,10000000 .. 20000000,222495,31051,253546,87.8,1427,2999,Survival; Open World; Multiplayer; Co-op; Survival Horror,5,Survival
+945360,72,Among Us,3832,20000000 .. 50000000,643681,57104,700785,91.9,1447,299,Multiplayer; Social Deduction; Online Co-Op; Space; Survival,5,Multiplayer
+2186680,73,"Warhammer 40,000: Rogue Trader",3582,10000000 .. 20000000,26360,4445,30805,85.6,3771,4999,Character Customization; Cinematic; Story Rich; Turn-Based Strategy; Dark Fantasy,5,Character Customization
+242760,74,The Forest,2892,20000000 .. 50000000,599805,27986,627791,95.5,1563,1999,Open World Survival Craft; Survival; Open World; Horror; Crafting,5,Open World Survival Craft
+1517290,75,Battlefield 2042,2774,10000000 .. 20000000,139186,158588,297774,46.7,3029,5999,FPS; Multiplayer; Shooter; Military; War,5,FPS
+219990,76,Grim Dawn,2376,10000000 .. 20000000,93489,6241,99730,93.7,4458,2499,Action RPG; Hack and Slash; Loot; Isometric; Dark Fantasy,5,Action RPG
+1240440,77,Halo Infinite,2275,10000000 .. 20000000,123333,53708,177041,69.7,1523,0,Free to Play; FPS; Multiplayer; Singleplayer; Shooter,5,Free to Play
+386360,78,SMITE,1853,10000000 .. 20000000,94368,25428,119796,78.8,9108,0,Free to Play; MOBA; Multiplayer; Action; Third Person,5,Free to Play
+220,79,Half-Life 2,1555,10000000 .. 20000000,239721,5906,245627,97.6,1631,999,FPS; Action; Sci-fi; Classic; Singleplayer,5,FPS
+1811260,80,EA SPORTS FIFA 23,1280,5000000 .. 10000000,86192,65227,151419,56.9,11097,0,Football (Soccer); Sports; Controller; e-sports; PvP,5,Football (Soccer)
+444090,81,Paladins,1028,10000000 .. 20000000,294373,52031,346404,85.0,4566,0,Hero Shooter; Free to Play; Multiplayer; FPS; Shooter,5,Hero Shooter
+433850,82,Z1 Battle Royale,1010,10000000 .. 20000000,113729,90284,204013,55.7,3616,0,Survival; Massively Multiplayer; Multiplayer; Open World; Battle Royale,5,Survival
+477160,83,Human Fall Flat,950,10000000 .. 20000000,202253,11387,213640,94.7,804,1999,Co-op; Funny; Puzzle; Adventure; Physics,5,Co-op
+304050,84,Trove,758,10000000 .. 20000000,74103,18267,92370,80.2,4667,0,Free to Play; Open World; Sandbox; Pixel Graphics; Fantasy,5,Free to Play
+1097150,85,Fall Guys: Ultimate Knockout,664,20000000 .. 50000000,385154,88589,473743,81.3,1377,0,Multiplayer; Party Game; Battle Royale; Family Friendly; Massively Multiplayer,5,Multiplayer
+400,86,Portal,638,10000000 .. 20000000,175024,2717,177741,98.5,324,999,Puzzle; Puzzle-Platformer; First-Person; 3D Platformer; Singleplayer,5,Puzzle
+70,87,Half-Life,634,10000000 .. 20000000,143086,5135,148221,96.5,1783,999,FPS; Classic; 1990's; Singleplayer; Sci-fi,5,FPS
+291480,88,Warface: Clutch,270,20000000 .. 50000000,54554,27643,82197,66.4,1888,0,Free to Play; FPS; Multiplayer; Shooter; Action,5,Free to Play
+1491000,89,War Robots: Frontiers,256,20000000 .. 50000000,1977,1105,3082,64.1,1566,0,Free to Play; Third-Person Shooter; Mechs; PvP; Multiplayer,5,Free to Play
+1089350,90,NBA 2K20,221,5000000 .. 10000000,30260,30413,60673,49.9,7859,0,Basketball; Sports; Simulation; Multiplayer; Singleplayer,5,Basketball
+550650,91,Black Squad,212,10000000 .. 20000000,62042,19672,81714,75.9,3957,0,Free to Play; FPS; Shooter; Multiplayer; Action,5,Free to Play
+320,92,Half-Life 2: Deathmatch,159,10000000 .. 20000000,12962,1334,14296,90.7,2713,1999,Action; FPS; Multiplayer; Shooter; First-Person,5,Action
+532210,93,Life is Strange 2,153,10000000 .. 20000000,31616,5018,36634,86.3,405,3196,Choices Matter; Story Rich; Adventure; Singleplayer; Great Soundtrack,5,Choices Matter
+100,94,Counter-Strike: Condition Zero,83,10000000 .. 20000000,13442,1535,14977,89.8,1434,999,Action; FPS; Shooter; Multiplayer; First-Person,5,Action
+1116170,95,CyberCorp,3,10000000 .. 20000000,266,56,322,82.6,640,974,Top-Down Shooter; Twin Stick Shooter; Top-Down; Singleplayer; Character Customization,5,Top-Down Shooter
+340,96,Half-Life 2: Lost Coast,2,20000000 .. 50000000,12215,1471,13686,89.3,0,1999,FPS; Action; Singleplayer; First-Person; Sci-fi,5,FPS
+417910,97,Street Warriors Online,1,10000000 .. 20000000,941,693,1634,57.6,70,199,Fighting; Action; Multiplayer; Sports; Violent,5,Fighting
+901583,98,Grand Theft Auto IV: Complete Edition,0,20000000 .. 50000000,144570,30702,175272,82.5,0,0,Open World; Action; Automobile Sim; Multiplayer; Crime,5,Open World
+227940,99,Heroes & Generals,0,10000000 .. 20000000,96499,46264,142763,67.6,3054,0,Free to Play; World War II; FPS; Multiplayer; War,5,Free to Play
+755790,100,Ring of Elysium,0,10000000 .. 20000000,74345,25492,99837,74.5,923,0,Free to Play; Battle Royale; Shooter; Multiplayer; Survival,5,Free to Play
