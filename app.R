@@ -11,7 +11,7 @@ library(ggraph)
 library(backbone)
 
 # ===== Setup: build everything once at startup =====
-games <- read.csv("~/Desktop/steam-video-game-network-analysis/nodes.csv")
+games <- read.csv("nodes.csv")
 
 long <- games |>
   separate_rows(tags, sep = "; ") |>
