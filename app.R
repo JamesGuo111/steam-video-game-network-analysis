@@ -9,7 +9,6 @@ library(igraph)
 library(tidygraph)
 library(ggraph)
 library(backbone)
-library(visNetwork)
 library(plotly)
 
 # Setup: build everything once at startup 
