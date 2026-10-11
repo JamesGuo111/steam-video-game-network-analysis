@@ -9,7 +9,7 @@
 <h1 align="center">Steam Video Game Network</h1>
 
 <p align="center">
-  How the 100 most-played games on Steam relate to one another through their gameplay tags:<br>
+  How the 100 most-played games on Steam relate to one another through their gameplay tags:
   a bipartite game–tag network, projected two ways and explored in an interactive R Shiny app.
 </p>
 
@@ -39,16 +39,8 @@ flowchart LR
     B --> C["Bipartite network<br/>100 games + 126 tags<br/>500 game–tag edges"]
     C -->|"games linked<br/>by shared tags"| D["Game network<br/>100 nodes · 2,926 edges"]
     C -->|"tags linked<br/>by co-occurrence"| E["Tag network<br/>126 nodes · 573 edges"]
-    D --> F["Structure<br/>density · distance · assortativity"]
-    E --> F
-    D --> G["Louvain communities"]
-    E --> G
-    D --> H["Centrality<br/>degree · betweenness · eigenvector"]
-    E --> H
-    D --> I["Backbone<br/>disparity filter, α = 0.2"]
-    E --> I
-    D --> J["Ego networks<br/>neighbourhood of any game or tag"]
-    E --> J
+    D & E --> F["Analyses on both networks<br/>structure · Louvain communities · centrality<br/>backbone (disparity filter, α = 0.2) · ego networks"]
+    F --> G["Shiny app<br/>and the figures below"]
 ```
 
 Edge weights count shared tags (game network) or co-occurring games (tag network). All of the analysis lives in [`app.R`](app.R); the figures below are regenerated from the app's own objects by [`analysis/make_figures.R`](analysis/make_figures.R).
