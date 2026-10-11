@@ -282,3 +282,98 @@ p <- plot_ranking(game_rank, primary, primary_palette, "Primary tag") +
   labs(title = "Who is central depends on how you measure it",
        subtitle = "Top 15 games under each centrality measure, coloured by primary tag")
 save_png(p, "game-centrality.png", width = 14, height = 7.5)
+
+# ---- 5. Tag network, backbones and ego networks --------------------------------
+message("Tag network, backbone and ego figures")
+
+# 5a. Tag network communities
+p <- plot_network(tag_nodes, tag_edges, community, tag_palette, "Louvain community",
+                  labels = top_by(tag_nodes, degree, 28),
+                  size_range = c(1.2, 11), edge_alpha = c(0.06, 0.45)) +
+  labs(title = "The tag network: 126 tags linked by co-occurrence",
+       subtitle = sprintf("%d edges \u00b7 density %.3f \u00b7 degree assortativity %.3f \u00b7 %d Louvain communities",
+                          ecount(app$tag_net), app$tag_density, app$tag_assort_deg, app$tag_n_communities),
+       caption = paste("Node size = degree; edge opacity = number of games in which both tags appear.",
+                       "Labelled: the 28 highest-degree tags."))
+save_png(p, "tag-communities.png", width = 10.5, height = 9.5)
+
+# 5b. Tag centrality rankings
+tag_rank <- app$tag_df |>
+  mutate(community = factor(tag_community_names[cluster], levels = tag_community_names)) |>
+  ranking(c("degree", "betweenness"))
+p <- plot_ranking(tag_rank, community, tag_palette, "Louvain community") +
+  labs(title = "Multiplayer leads every tag ranking",
+       subtitle = "Top 15 tags by degree and betweenness, coloured by Louvain community")
+save_png(p, "tag-centrality.png", width = 12, height = 6.5)
+
+# 5c. Backbones (disparity filter, alpha = 0.2, largest component), as in the app
+bb_tag_nodes <- layout_nodes(app$bb_t_tidy) |>
+  mutate(community = factor(tag_community_names[cluster], levels = tag_community_names))
+bb_tag_edges <- layout_edges(app$bb_t_tidy, bb_tag_nodes)
+p <- plot_backbone(bb_tag_nodes, bb_tag_edges, community, tag_palette, "Louvain community",
+                   labels = bb_tag_nodes) +
+  labs(title = "Backbone of the tag network",
+       subtitle = sprintf("Disparity filter, \u03b1 = 0.2 \u00b7 largest component: %d tags and %d of %d edges",
+                          nrow(bb_tag_nodes), nrow(bb_tag_edges), ecount(app$tag_net)),
+       caption = "Node size = degree in the backbone; edge width = number of co-occurring games.")
+save_png(p, "tag-backbone.png", height = 9)
+
+bb_game_nodes <- layout_nodes(app$bb_g_tidy) |>
+  mutate(primary = factor(primary_tag_grouped, levels = primary_levels))
+bb_game_edges <- layout_edges(app$bb_g_tidy, bb_game_nodes)
+p <- plot_backbone(bb_game_nodes, bb_game_edges, primary, primary_palette, "Primary tag",
+                   labels = top_by(bb_game_nodes, degree, 12)) +
+  labs(title = "Backbone of the game network",
+       subtitle = sprintf("Disparity filter, \u03b1 = 0.2 \u00b7 largest component: %d games and %d of %s edges",
+                          nrow(bb_game_nodes), nrow(bb_game_edges), scales::comma(ecount(app$game_net))),
+       caption = paste("Node size = degree in the backbone; edge width = number of shared tags.",
+                       "Labelled: the 12 best-connected games."))
+save_png(p, "game-backbone.png", height = 9)
+
+# 5d. Ego networks: neighbours at or above a minimum edge weight, as with the app's slider
+ego_star <- function(graph, focal, min_weight) {
+  inc <- incident(graph, focal)
+  ab  <- ends(graph, inc)
+  tibble(name = ifelse(ab[, 1] == focal, ab[, 2], ab[, 1]), weight = E(graph)$weight[inc]) |>
+    filter(weight >= min_weight) |>
+    arrange(desc(weight), name) |>
+    mutate(angle = pi / 2 - 2 * pi * (row_number() - 1) / n(),
+           x = cos(angle), y = sin(angle), rel = weight / max(weight))
+}
+mhw <- ego_star(app$game_net, "g_582010", min_weight = 3) |>
+  left_join(app$game_df |> select(name, label), by = "name")
+mp  <- ego_star(app$tag_net, "t_Multiplayer", min_weight = 5) |>
+  mutate(label = sub("^t_", "", name))
+ego_panels <- c(
+  sprintf("Monster Hunter: World\n%d of its %d neighbouring games share \u2265 3 tags",
+          nrow(mhw), degree(app$game_net, "g_582010")),
+  sprintf("Multiplayer\n%d of its %d neighbouring tags co-occur in \u2265 5 games",
+          nrow(mp), degree(app$tag_net, "t_Multiplayer")))
+ego <- bind_rows(mhw |> mutate(panel = ego_panels[1], colour = "steelblue"),
+                 mp  |> mutate(panel = ego_panels[2], colour = "darkorange")) |>
+  mutate(panel = factor(panel, levels = ego_panels),
+         text  = str_wrap(sprintf("%s (%d)", label, weight), 18),
+         hjust = case_when(x > 0.1 ~ 0, x < -0.1 ~ 1, TRUE ~ 0.5),
+         vjust = case_when(y > 0.9 ~ 0, y < -0.9 ~ 1, TRUE ~ 0.5))
+focal <- tibble(panel  = factor(ego_panels, levels = ego_panels),
+                label  = c("Monster Hunter:\nWorld", "Multiplayer"),
+                colour = c("steelblue", "darkorange"))
+p <- ggplot(ego) +
+  geom_segment(aes(x = 0, y = 0, xend = x, yend = y, linewidth = rel, colour = colour),
+               alpha = 0.35, lineend = "round") +
+  geom_point(aes(x, y, fill = colour), size = 5, shape = 21, colour = "white", stroke = 0.6) +
+  geom_point(data = focal, aes(0, 0, fill = colour), size = 18, shape = 21,
+             colour = "white", stroke = 1) +
+  geom_label(data = focal, aes(0, 0, label = label), family = font, fontface = "bold",
+             size = 3.9, linewidth = 0, fill = alpha("white", 0.9), lineheight = 0.9) +
+  geom_text(aes(1.13 * x, 1.13 * y, label = text, hjust = hjust, vjust = vjust),
+            family = font, size = 3.4, colour = "grey15", lineheight = 0.9) +
+  scale_linewidth(range = c(0.6, 3.2), guide = "none") +
+  scale_colour_identity() +
+  scale_fill_identity() +
+  facet_wrap(~panel) +
+  coord_equal(xlim = c(-1.9, 1.9), ylim = c(-1.35, 1.35), clip = "off") +
+  labs(title = "Neighbourhoods as recommendations",
+       subtitle = "Edges filtered by a minimum weight, as with the app's slider; edge weights in brackets") +
+  theme_network()
+save_png(p, "ego-networks.png", width = 13, height = 5.8)
