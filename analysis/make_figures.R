@@ -57,6 +57,16 @@ with(app, {
   expect_value("tag diameter",              tag_diameter,                4)
   expect_value("tag mean distance",         tag_meandist,                2.223)
   expect_value("tag communities",           tag_n_communities,           6)
+  # Further numbers quoted in the README
+  expect_value("game Louvain modularity",    game_louvain_mod,            0.172)
+  expect_value("tag Louvain modularity",     tag_louvain_mod,             0.338)
+  expect_value("tag degree assortativity",   tag_assort_deg,              -0.238)
+  expect_value("primary-tag assortativity",  game_assort_pt,              0.013)
+  expect_value("primary-tag modularity",     game_mod_pt,                 0.012)
+  expect_value("game backbone nodes",        vcount(bb_g_tidy),           92)
+  expect_value("game backbone edges",        ecount(bb_g_tidy),           421)
+  expect_value("tag backbone nodes",         vcount(bb_t_tidy),           39)
+  expect_value("tag backbone edges",         ecount(bb_t_tidy),           62)
 })
 
 # The Findings tab describes six tag communities by their member tags. Stop if
@@ -78,6 +88,10 @@ for (k in seq_along(findings_communities)) {
   }
 }
 tag_community_names <- names(findings_communities)  # position = Louvain cluster id
+# Community 5 is labelled "Simulation & strategy" because Strategy falls in it
+if (tag_cluster[["Strategy"]] != 5) {
+  stop("The Strategy tag left community 5; revisit its label.", call. = FALSE)
+}
 
 # Game communities are not described in the app; each is labelled after its most
 # frequent tags and identified by an anchor game, so labels survive renumbering.
