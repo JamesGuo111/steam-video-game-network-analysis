@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it as below."
+title: "Steam Video Game Network: a bipartite analysis of games and gameplay tags"
+abstract: >-
+  A bipartite network analysis of the 100 most-played Steam games and their
+  126 gameplay tags (SteamSpy, May 2026), projected into a game network and a
+  tag co-occurrence network and analysed with structural statistics, Louvain
+  communities, centrality and disparity-filter backbones in an R Shiny app.
+type: software
+authors:
+  - family-names: Guo
+    given-names: Zijing
+repository-code: "https://github.com/JamesGuo111/steam-video-game-network-analysis"
+date-released: 2026-05-15
+keywords:
+  - network analysis
+  - bipartite network
+  - community detection
+  - backbone extraction
+  - video games
+  - Steam
+  - R
+  - Shiny
