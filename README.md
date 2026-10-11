@@ -26,10 +26,10 @@ Every game on Steam carries a handful of user-voted gameplay tags: *RPG*, *Multi
 
 ## Key findings
 
-1. **The game network is a dense small world, held together by one tag.** 59% of all possible game pairs share at least one tag, and no two games are more than three steps apart. *Multiplayer* alone appears on 65 of the 100 games, linking 2,080 pairs: 71% of all edges.
+1. **The game network is dense and compact, and one tag accounts for much of that density.** 59% of all possible game pairs share at least one tag, and no two games are more than three steps apart. *Multiplayer* alone appears on 65 of the 100 games, linking 2,080 pairs: 71% of all edges.
 2. **Popularity is not centrality.** Counter-Strike: Global Offensive, with over a million concurrent players, ranks only 41st of 100 by degree; Baldur's Gate 3 ranks 93rd.
 3. **Each centrality measure picks out a different kind of game.** Degree favours games built on widespread conventions such as open world and survival; betweenness favours hybrids that bridge clusters; eigenvector centrality concentrates in a tightly knit shooter core.
-4. **Tags organize into six meta-genres.** The tag network's backbone resolves into online shooters, open-world survival, single-player adventure, RPG & Souls-like, simulation & strategy, and sports & tactics. *Multiplayer*, which co-occurs with 86 of the other 125 tags, is the hub that ties them together.
+4. **Tags fall into six meta-genres.** In the app's seeded Louvain run, the tag network splits into online shooters, open-world survival, single-player adventure, RPG & Souls-like, simulation & strategy, and sports & tactics, and its backbone shows what each group stands for. *Multiplayer*, which co-occurs with 86 of the other 125 tags, is the hub that ties them together.
 
 ## How it works
 
@@ -47,11 +47,11 @@ Edge weights count shared tags (game network) or co-occurring games (tag network
 
 ## Results
 
-### 1. A dense small world
+### 1. A dense, compact network
 
 <img src="figures/game-communities.png" alt="Game network coloured by five Louvain communities" width="100%">
 
-With 2,926 edges among 100 games, the game network has a density of **0.591**: roughly six in ten game pairs share at least one tag. Its diameter is 3 and its mean distance 1.414, so almost any two top-100 games are one or two hops apart. Much of this density comes from a single tag: the 65 games tagged *Multiplayer* form a clique of 2,080 pairs on their own. Degree assortativity is moderately positive (**0.227**), so well-connected games tend to link to other well-connected games and the densely connected core is somewhat insular. Even so, Louvain community detection recovers five coherent groups, labelled here by their most frequent tags.
+With 2,926 edges among 100 games, the game network has a density of **0.591**: roughly six in ten game pairs share at least one tag. Its diameter is 3 and its mean distance 1.414, so almost any two top-100 games are one or two hops apart. Much of this density comes from a single tag: the 65 games tagged *Multiplayer* form a clique of 2,080 pairs on their own. Degree assortativity is moderately positive (**0.227**), so well-connected games tend to link to other well-connected games and the densely connected core is somewhat insular. Even so, the app's seeded Louvain run finds five groups, labelled here by their most frequent tags (Louvain partitions vary from run to run; see Methods).
 
 ### 2. Popularity is not centrality
 
@@ -63,7 +63,7 @@ Sizing nodes by concurrent players (CCU) instead of degree shows that commercial
 
 <img src="figures/game-centrality.png" alt="Top 15 games by degree, betweenness and eigenvector centrality" width="100%">
 
-The three measures reward different things. **Degree** is led by games whose tags are common conventions shared across genres: Open World, Survival and Free to Play titles such as Grand Theft Auto V and Destiny 2, plus several "Other" games. **Betweenness** swells the "Other" category further (NBA 2K20, Lost Ark, Borderlands 2, VRChat): bridging positions go to games with unusual or hybrid tag combinations that link otherwise separate clusters. **Eigenvector** centrality is almost entirely shooters (Warface: Clutch, Black Squad, Call of Duty: Modern Warfare II and the Counter-Strike series), a tightly knit core whose members connect mainly to each other.
+The three measures reward different things. **Degree** is led by games whose tags are common conventions shared across genres: Open World, Survival and Free to Play titles such as Grand Theft Auto V and Destiny 2, plus several "Other" games. **Betweenness** swells the "Other" category further (NBA 2K20, Lost Ark, Borderlands 2, VRChat): bridging positions go to games with unusual or hybrid tag combinations that link otherwise separate clusters. **Eigenvector** centrality is entirely shooters (Warface: Clutch, Black Squad, Call of Duty: Modern Warfare II and the Counter-Strike series): all 15 carry the FPS or Shooter tag, and they share 3.4 tags with one another on average (1.47 across the whole network), so their heavily weighted mutual ties lift their scores.
 
 ### 4. The tag network: hub and spoke
 
@@ -79,11 +79,11 @@ The tag network is far sparser: 573 edges among 126 tags give a density of **0.0
 *Multiplayer* leads both rankings; its betweenness (0.43) is more than three times that of the runner-up, *Singleplayer* (0.12).
 </details>
 
-### 5. The backbone reveals six meta-genres
+### 5. The backbone makes the communities readable
 
 <img src="figures/tag-backbone.png" alt="Disparity-filter backbone of the tag network" width="100%">
 
-The disparity filter keeps only edges that carry a statistically significant share of a node's total weight, exposing the network's skeleton: the backbone's main component retains 39 tags and 62 of 573 edges. It makes the six Louvain communities readable as meta-genres:
+The disparity filter keeps only edges that carry a statistically significant share of a node's total weight, exposing the network's skeleton: the backbone's main component retains 39 tags and 62 of 573 edges. It makes the six communities of the app's seeded Louvain run readable as meta-genres:
 
 | # | Meta-genre | Representative tags |
 |:-:|---|---|
@@ -158,7 +158,7 @@ The data were collected in May 2026 with a Python script that queried the [Steam
 
 - **Bipartite network.** Games and tags are the two node sets; each game links to its five tags (100 × 5 = 500 edges). `igraph::bipartite_projection()` produces the two one-mode projections, with edge weights equal to the number of shared tags (game network) or co-occurring games (tag network).
 - **Structure.** Density, diameter and mean distance on the unweighted projections; degree assortativity on both; nominal assortativity and modularity by primary tag on the game network.
-- **Communities.** Weighted Louvain (Blondel et al., 2008) via `tidygraph::group_louvain()`, with communities numbered by size. Louvain is stochastic and its partition varies from run to run, so `app.R` fixes the random seed (`set.seed(780)`), which reproduces the community structure described in the app's Findings.
+- **Communities.** Weighted Louvain (Blondel et al., 2008) via `tidygraph::group_louvain()`, with communities numbered by size. Louvain is stochastic: across repeated runs the tag network splits into five to seven communities and the game network into three to five, and their membership shifts. `app.R` therefore fixes the random seed (`set.seed(780)`, with the package versions pinned in `manifest.json`) so that it reproduces the partition described in the app's Findings. That partition is one of several Louvain finds; how robust the communities are is left for future work.
 - **Centrality.** Degree, normalized betweenness and, for games, weighted eigenvector centrality.
 - **Backbone.** Disparity filter (Serrano, Boguñá & Vespignani, 2009) at α = 0.2 via `backbone::backbone_from_weighted()` (Neal, 2022); isolated nodes are dropped and the largest connected component is shown.
 - **Ego networks.** The one-step neighbourhood of a focal game or tag, keeping only edges at or above a minimum weight.
