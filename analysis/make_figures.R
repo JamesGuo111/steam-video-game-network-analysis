@@ -23,6 +23,18 @@ dir.create("figures", showWarnings = FALSE)
 app <- new.env()
 suppressMessages(sys.source("app.R", envir = app))
 
+# nodes.csv is UTF-8; declare it so titles such as Civilization VI (curly
+# apostrophe) render correctly even when R runs under a non-UTF-8 locale
+as_utf8 <- function(x) {
+  Encoding(x) <- "UTF-8"
+  x
+}
+for (g in c("game_tidy", "tag_tidy", "bb_g_tidy", "bb_t_tidy")) {
+  if (!is.null(app[[g]])) app[[g]] <- app[[g]] |> activate(nodes) |> mutate(label = as_utf8(label))
+}
+app$game_df$label <- as_utf8(app$game_df$label)
+app$tag_df$label  <- as_utf8(app$tag_df$label)
+
 # ---- 2. Sanity checks against the numbers reported in the app ---------------
 expect_value <- function(label, actual, expected, tol = 1e-3) {
   if (abs(as.numeric(actual) - expected) > tol) {
@@ -89,7 +101,7 @@ game_palette <- setNames(c("#0072B2", "#E69F00", "#D55E00", "#CC79A7", "#56B4E9"
                          unname(game_anchors))
 primary_levels  <- c(app$top_tags, "Other")
 primary_palette <- setNames(c("#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", "#EDC948",
-                              "#B07AA1", "#FF9DA7", "#9C755F", "#86BCB6", "#CFCFCF"),
+                              "#B07AA1", "#FF9DA7", "#9C755F", "#4B3B8F", "#CFCFCF"),
                             primary_levels)
 
 theme_network <- function() {
@@ -99,6 +111,7 @@ theme_network <- function() {
           plot.subtitle   = element_text(colour = "grey30", size = 12.5, margin = margin(b = 8)),
           plot.caption    = element_text(colour = "grey40", size = 10, hjust = 0, margin = margin(t = 8)),
           legend.position = "bottom",
+          legend.box      = "vertical",
           legend.title    = element_text(face = "bold", size = 11.5),
           legend.text     = element_text(size = 11),
           strip.text      = element_text(face = "bold", size = 12.5, margin = margin(b = 6)),
@@ -157,12 +170,12 @@ plot_network <- function(nodes, edges, fill, palette, fill_name, labels,
     scale_alpha(range = edge_alpha) +
     geom_point(data = nodes, aes(x, y, fill = {{ fill }}, size = degree),
                shape = 21, colour = "white", stroke = 0.35) +
-    scale_fill_manual(values = palette, name = fill_name, drop = FALSE) +
+    scale_fill_manual(values = palette, name = fill_name) +
     scale_size(range = size_range, name = "Degree") +
     repel_labels(labels) +
     coord_equal(clip = "off") +
     guides(fill = guide_legend(override.aes = list(size = 4.5), nrow = 2, order = 1),
-           size = guide_legend(order = 2)) +
+           size = guide_legend(order = 2, override.aes = list(fill = "grey65"))) +
     theme_network()
 }
 
@@ -173,7 +186,7 @@ plot_backbone <- function(nodes, edges, fill, palette, fill_name, labels) {
     scale_linewidth(range = c(0.3, 2.2)) +
     geom_point(data = nodes, aes(x, y, fill = {{ fill }}, size = degree),
                shape = 21, colour = "white", stroke = 0.4) +
-    scale_fill_manual(values = palette, name = fill_name, drop = FALSE) +
+    scale_fill_manual(values = palette, name = fill_name) +
     scale_size(range = c(2.5, 12), guide = "none") +
     repel_labels(labels, size = 3.6) +
     coord_equal(clip = "off") +
@@ -191,3 +204,81 @@ tag_nodes  <- layout_nodes(app$tag_tidy) |>
 tag_edges  <- layout_edges(app$tag_tidy, tag_nodes)
 
 message("Checks passed: networks match the app.")
+
+# ---- 4. Game network figures ---------------------------------------------------
+message("Game network figures")
+
+# 4a. Communities
+game_labels <- bind_rows(top_by(game_nodes, ccu, 8), top_by(game_nodes, degree, 8)) |>
+  distinct(name, .keep_all = TRUE)
+p <- plot_network(game_nodes, game_edges, community, game_palette, "Louvain community", game_labels) +
+  labs(title = "The game network: 100 games linked by shared tags",
+       subtitle = sprintf("%s edges \u00b7 density %.3f \u00b7 diameter %d \u00b7 %d Louvain communities",
+                          scales::comma(ecount(app$game_net)), app$game_density, app$game_diameter,
+                          n_distinct(app$game_df$cluster)),
+       caption = paste("Node size = degree; edge opacity = number of shared tags.",
+                       "Labelled: the eight most-played and the eight best-connected games."))
+save_png(p, "game-communities.png", width = 10.5, height = 9.5)
+
+# 4b. Popularity vs. centrality: same layout, two size encodings
+panels <- c("Node size = degree", "Node size = concurrent players (log scale)")
+pop_labelled <- c("Counter-Strike: Global Offensive", "PUBG: BATTLEGROUNDS", "Baldur's Gate 3",
+                  "Wallpaper Engine", "Monster Hunter: World", "Grand Theft Auto IV: Complete Edition")
+pop_label_ids <- game_nodes$name[game_nodes$label %in% pop_labelled]
+stopifnot(length(pop_label_ids) == length(pop_labelled))
+pop_nodes <- bind_rows(
+  game_nodes |> mutate(panel = panels[1], s = scales::rescale(degree)),
+  game_nodes |> mutate(panel = panels[2], s = scales::rescale(log10(ccu + 1)))) |>
+  mutate(panel = factor(panel, levels = panels))
+pop_edges <- bind_rows(game_edges |> mutate(panel = panels[1]),
+                       game_edges |> mutate(panel = panels[2])) |>
+  mutate(panel = factor(panel, levels = panels))
+p <- ggplot() +
+  geom_segment(data = pop_edges, aes(x, y, xend = xend, yend = yend, alpha = weight),
+               colour = "grey60", linewidth = 0.2, show.legend = FALSE) +
+  scale_alpha(range = c(0.03, 0.18)) +
+  geom_point(data = pop_nodes, aes(x, y, fill = primary, size = s),
+             shape = 21, colour = "white", stroke = 0.3) +
+  scale_size(range = c(0.8, 10), guide = "none") +
+  scale_fill_manual(values = primary_palette, name = "Primary tag") +
+  geom_point(data = pop_nodes |> filter(name %in% pop_label_ids), aes(x, y, size = s),
+             shape = 21, fill = NA, colour = "grey10", stroke = 0.9) +
+  repel_labels(pop_nodes |> filter(name %in% pop_label_ids), size = 3.4) +
+  facet_wrap(~panel) +
+  coord_equal(clip = "off") +
+  guides(fill = guide_legend(override.aes = list(size = 4.5), nrow = 2)) +
+  labs(title = "Popularity is not centrality",
+       subtitle = "The most-played games are scattered across the network rather than concentrated in its core",
+       caption = "Outlined and labelled: the games discussed in the text.") +
+  theme_network()
+save_png(p, "game-popularity-vs-centrality.png", width = 13, height = 7.5)
+
+# 4c. Centrality rankings
+metric_labels <- c(degree = "Degree", betweenness = "Betweenness (normalized)",
+                   eigenvector = "Eigenvector")
+ranking <- function(df, metrics) {
+  df |>
+    pivot_longer(all_of(metrics), names_to = "metric") |>
+    group_by(metric) |>
+    slice_max(value, n = 15, with_ties = FALSE) |>
+    ungroup() |>
+    mutate(metric = factor(metric_labels[metric], levels = metric_labels[metrics]),
+           item   = fct_reorder(paste(label, metric, sep = "___"), value))
+}
+plot_ranking <- function(data, fill, palette, fill_name) {
+  ggplot(data, aes(value, item, fill = {{ fill }})) +
+    geom_col(width = 0.72) +
+    facet_wrap(~metric, scales = "free", nrow = 1) +
+    scale_y_discrete(labels = function(x) str_wrap(sub("___.*$", "", x), 24)) +
+    scale_x_continuous(expand = expansion(mult = c(0, 0.04))) +
+    scale_fill_manual(values = palette, name = fill_name) +
+    guides(fill = guide_legend(nrow = 2)) +
+    theme_ranking()
+}
+game_rank <- app$game_df |>
+  mutate(primary = factor(primary_tag_grouped, levels = primary_levels)) |>
+  ranking(c("degree", "betweenness", "eigenvector"))
+p <- plot_ranking(game_rank, primary, primary_palette, "Primary tag") +
+  labs(title = "Who is central depends on how you measure it",
+       subtitle = "Top 15 games under each centrality measure, coloured by primary tag")
+save_png(p, "game-centrality.png", width = 14, height = 7.5)
