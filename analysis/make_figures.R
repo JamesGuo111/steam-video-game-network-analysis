@@ -377,3 +377,26 @@ p <- ggplot(ego) +
        subtitle = "Edges filtered by a minimum weight, as with the app's slider; edge weights in brackets") +
   theme_network()
 save_png(p, "ego-networks.png", width = 13, height = 5.8)
+
+# ---- 6. Animated header: tag network -> backbone -------------------------------
+message("Animated header")
+source("analysis/hero_svg.R")
+pair_key   <- function(a, b) paste(pmin(a, b), pmax(a, b))
+bb_pairs   <- pair_key(bb_tag_nodes$name[bb_tag_edges$from], bb_tag_nodes$name[bb_tag_edges$to])
+hero_edges <- tag_edges |>
+  mutate(backbone = pair_key(tag_nodes$name[from], tag_nodes$name[to]) %in% bb_pairs)
+stopifnot(sum(hero_edges$backbone) == nrow(bb_tag_edges))
+hero_nodes <- tag_nodes |>
+  left_join(bb_tag_nodes |> select(name, bx = x, by = y), by = "name") |>
+  mutate(in_backbone = name %in% bb_tag_nodes$name,
+         show_label  = name %in% top_by(bb_tag_nodes, degree, 16)$name)
+for (mode in c("light", "dark")) {
+  write_hero_svg(file.path("figures", sprintf("hero-tag-backbone-%s.svg", mode)),
+                 hero_nodes, hero_edges, tag_palette, mode,
+                 caption_full     = c(sprintf("%d gameplay tags", nrow(tag_nodes)),
+                                      sprintf("%d co-occurrence edges", nrow(tag_edges))),
+                 caption_backbone = c("Disparity-filter backbone",
+                                      sprintf("\u03b1 = 0.2 \u00b7 %d edges", nrow(bb_tag_edges))))
+  message("  wrote figures/hero-tag-backbone-", mode, ".svg")
+}
+message("Done.")
