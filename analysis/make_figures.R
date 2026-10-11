@@ -10,11 +10,15 @@ suppressPackageStartupMessages({
   library(ggrepel)
 })
 
-# Work from the repository root (also works when called from analysis/)
-if (!file.exists("app.R") && file.exists("../app.R")) setwd("..")
-if (!file.exists("app.R")) {
-  stop("Run from the repository root: Rscript analysis/make_figures.R", call. = FALSE)
+# Work from the repository this script belongs to, located from the script's
+# own path (Rscript or source()), never from whatever folder R happens to be in
+script <- sub("^--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE))
+if (length(script) == 0) script <- tryCatch(sys.frame(1)$ofile, error = function(e) NULL)
+root <- if (length(script) == 1) dirname(dirname(normalizePath(script))) else getwd()
+if (!file.exists(file.path(root, "analysis", "make_figures.R")) || !file.exists(file.path(root, "app.R"))) {
+  stop("Cannot find the repository; run: Rscript analysis/make_figures.R", call. = FALSE)
 }
+setwd(root)
 dir.create("figures", showWarnings = FALSE)
 
 # ---- 1. Build the networks exactly as the app does ---------------------------
