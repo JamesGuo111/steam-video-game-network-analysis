@@ -11,6 +11,10 @@ library(ggraph)
 library(backbone)
 library(plotly)
 
+# Louvain community detection is randomized; a fixed seed keeps the communities
+# identical on every run and consistent with the Findings tab
+set.seed(780)
+
 # Setup: build everything once at startup 
 games <- read.csv("nodes.csv")
 
@@ -99,13 +103,13 @@ game_assort_pt   <- round(assortativity_nominal(game_net,
 game_assort_deg  <- round(assortativity_degree(game_net, directed = FALSE), 3)
 game_mod_pt      <- round(modularity(game_net,
                                      membership = as.integer(as.factor(V(game_net)$primary_tag))), 3)
-game_louvain_mod <- round(modularity(cluster_louvain(game_net)), 3)
+game_louvain_mod <- round(modularity(game_net, membership = game_df$cluster, weights = E(game_net)$weight), 3)
 
 tag_density       <- round(edge_density(tag_net), 3)
 tag_diameter      <- diameter(tag_net, weights = NA)
 tag_meandist      <- round(mean_distance(tag_net, weights = NA, unconnected = TRUE), 3)
 tag_assort_deg    <- round(assortativity_degree(tag_net, directed = FALSE), 3)
-tag_louvain_mod   <- round(modularity(cluster_louvain(tag_net)), 3)
+tag_louvain_mod   <- round(modularity(tag_net, membership = tag_df$cluster, weights = E(tag_net)$weight), 3)
 tag_n_communities <- length(unique(tag_df$cluster))
 
 # Max edge weights for similarity neighborhood threshold sliders
